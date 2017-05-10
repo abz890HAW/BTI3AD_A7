@@ -13,11 +13,11 @@ public class BinListTree implements IBinTree {
     }
 
     private int leftOf(int idx) {
-        return 2*idx;
+        return 2*idx+1;
     }
 
     private int rightOf(int idx) {
-        return 2*idx+1;
+        return 2*idx+2;
     }
 
     public boolean insert(Comparable comparable) {
@@ -28,15 +28,27 @@ public class BinListTree implements IBinTree {
             if(0 == comparison) {
                 return false;
             }
-            idx = (comparison < 0) ? leftOf(idx) : rightOf(idx);
+            idx = (comparison > 0) ? leftOf(idx) : rightOf(idx);
         }
-        comparables[0] = comparable;
+        comparables[idx] = comparable;
         return true;
     }
 
     @Override
     public String getInOrder() {
-        return null;
+        return getInOrderReku(0);
+    }
+
+    private String getInOrderReku(int idx) {
+        String result = "";
+        if(null != comparables[idx]) {
+            result += getInOrderReku(leftOf(idx));
+            result += " ";
+            result += comparables[idx];
+            result += " ";
+            result += getInOrderReku(rightOf(idx));
+        }
+        return result;
     }
 
     @Override
