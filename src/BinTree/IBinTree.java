@@ -5,7 +5,7 @@ package BinTree;
  */
 public interface IBinTree {
     boolean insert(Comparable comparable);
-    String getInOrder();
-    String getPreOrder();
-    String getPostOrder();
+    Comparable[] getInOrder();
+    Comparable[] getPreOrder();
+    Comparable[] getPostOrder();
 }

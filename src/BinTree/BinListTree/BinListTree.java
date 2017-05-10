@@ -35,29 +35,38 @@ public class BinListTree implements IBinTree {
     }
 
     @Override
-    public String getInOrder() {
+    public Comparable[] getInOrder() {
         return getInOrderReku(0);
     }
 
-    private String getInOrderReku(int idx) {
-        String result = "";
+    private Comparable[] getInOrderReku(int idx) {
+        Comparable[] result = {};
         if(null != comparables[idx]) {
-            result += getInOrderReku(leftOf(idx));
-            result += " ";
-            result += comparables[idx];
-            result += " ";
-            result += getInOrderReku(rightOf(idx));
+            result = concat(result, getInOrderReku(leftOf(idx)));
+            result = concat(result, new Comparable[]{comparables[idx]});
+            result = concat(result, getInOrderReku(rightOf(idx)));
         }
         return result;
     }
 
     @Override
-    public String getPreOrder() {
+    public Comparable[] getPreOrder() {
         return null;
     }
 
     @Override
-    public String getPostOrder() {
+    public Comparable[] getPostOrder() {
         return null;
+    }
+
+    private Comparable[] concat(Comparable[] A, Comparable[] B) {
+        Comparable[] result = new Comparable[A.length + B.length];
+        for(int i = 0; i < A.length; i++) {
+            result[i] = A[i];
+        }
+        for(int i = 0; i < B.length; i++) {
+            result[A.length+i] = B[i];
+        }
+        return result;
     }
 }

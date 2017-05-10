@@ -3,6 +3,9 @@ import BinTree.IBinTree;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Arrays;
+
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -26,13 +29,20 @@ public class TBinTree {
 
     @Test
     public void test() {
+        /* clone array and sort for comparison */
+        Comparable[] sorted = new Comparable[VAL_ARR.length];
+        for(int i = 0; i < VAL_ARR.length; i++) {
+            sorted[i] = VAL_ARR[i];
+        }
+        Arrays.sort(sorted);
         /* fill array with unique random numbers */
         for(int val: VAL_ARR) {
             assertTrue(binTree.insert(val));
         }
-        /* insert one number again */
+        /* try to insert one number again */
         assertFalse(binTree.insert(VAL_ARR[0]));
-        System.out.println(binTree.getInOrder());
+        /* get InOrder output and compare to sorted clone */
+        assertArrayEquals(binTree.getInOrder(), sorted);
     }
 
 }

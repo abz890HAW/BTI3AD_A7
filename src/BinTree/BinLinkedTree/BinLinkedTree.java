@@ -14,17 +14,17 @@ public class BinLinkedTree implements IBinTree {
     }
 
     @Override
-    public String getInOrder() {
+    public Comparable[] getInOrder() {
         return null;
     }
 
     @Override
-    public String getPreOrder() {
+    public Comparable[] getPreOrder() {
         return null;
     }
 
     @Override
-    public String getPostOrder() {
+    public Comparable[] getPostOrder() {
         return null;
     }
 }
