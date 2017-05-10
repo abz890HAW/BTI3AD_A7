@@ -6,6 +6,12 @@ import BinTree.IBinTree;
  * Created by marble on 5/10/17.
  */
 public class BinListTree implements IBinTree {
+    private enum Order{
+        IN,
+        PRE,
+        POST
+    }
+
     private Comparable[] comparables;
 
     public BinListTree(int depth) {
@@ -36,27 +42,41 @@ public class BinListTree implements IBinTree {
 
     @Override
     public Comparable[] getInOrder() {
-        return getInOrderReku(0);
-    }
-
-    private Comparable[] getInOrderReku(int idx) {
-        Comparable[] result = {};
-        if(null != comparables[idx]) {
-            result = concat(result, getInOrderReku(leftOf(idx)));
-            result = concat(result, new Comparable[]{comparables[idx]});
-            result = concat(result, getInOrderReku(rightOf(idx)));
-        }
-        return result;
+        return getOrderReku(0, Order.IN);
     }
 
     @Override
     public Comparable[] getPreOrder() {
-        return null;
+        return getOrderReku(0, Order.PRE);
     }
 
     @Override
     public Comparable[] getPostOrder() {
-        return null;
+        return getOrderReku(0, Order.POST);
+    }
+
+    private Comparable[] getOrderReku(int idx, Order order) {
+        Comparable[] result = {};
+        if(null != comparables[idx]) {
+            switch (order) {
+                case IN:
+                    result = concat(result, getOrderReku(leftOf(idx), order));
+                    result = concat(result, new Comparable[]{comparables[idx]});
+                    result = concat(result, getOrderReku(rightOf(idx), order));
+                    break;
+                case PRE:
+                    result = concat(result, new Comparable[]{comparables[idx]});
+                    result = concat(result, getOrderReku(leftOf(idx), order));
+                    result = concat(result, getOrderReku(rightOf(idx), order));
+                    break;
+                case POST:
+                    result = concat(result, getOrderReku(leftOf(idx), order));
+                    result = concat(result, getOrderReku(rightOf(idx), order));
+                    result = concat(result, new Comparable[]{comparables[idx]});
+                    break;
+            }
+        }
+        return result;
     }
 
     private Comparable[] concat(Comparable[] A, Comparable[] B) {
