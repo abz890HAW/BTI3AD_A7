@@ -7,6 +7,35 @@ public class Vertex {
     private Vertex left, right;
     private Comparable value;
 
+    Vertex(Comparable value) {
+        this.value = value;
+    }
+
+    boolean insert(Comparable value) {
+        int comparison = value.compareTo(this.value);
+        if(0 == comparison) {
+            return false;
+        }
+        if(comparison < 0) {
+            if(null == left) {
+                left = new Vertex(value);
+                return true;
+            }
+            else {
+                return left.insert(value);
+            }
+        }
+        else {
+            if(null == right) {
+                right = new Vertex(value);
+                return true;
+            }
+            else {
+                return right.insert(value);
+            }
+        }
+    }
+
     public Vertex getLeft() {
         return left;
     }
@@ -17,17 +46,5 @@ public class Vertex {
 
     public Comparable getValue() {
         return value;
-    }
-
-    public void setLeft(Vertex left) {
-        this.left = left;
-    }
-
-    public void setRight(Vertex right) {
-        this.right = right;
-    }
-
-    public void setValue(Comparable value) {
-        this.value = value;
     }
 }

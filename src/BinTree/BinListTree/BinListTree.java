@@ -6,16 +6,14 @@ import BinTree.IBinTree;
  * Created by marble on 5/10/17.
  */
 public class BinListTree implements IBinTree {
-    private enum Order{
-        IN,
-        PRE,
-        POST
-    }
 
     private Comparable[] comparables;
+    private final int depth;
+    private int maxEntryLen = 0;
 
     public BinListTree(int depth) {
-        comparables = new Comparable[(int)Math.pow(2, depth)];
+        this.depth = depth;
+        comparables = new Comparable[(int)Math.pow(2, depth+1)-1];
     }
 
     private int leftOf(int idx) {
@@ -28,6 +26,7 @@ public class BinListTree implements IBinTree {
 
     public boolean insert(Comparable comparable) {
         int idx = 0;
+        int entryLen = comparable.toString().length();
         while(null != comparables[idx]) {
             int comparison = comparables[idx].compareTo(comparable);
             /* check if element is already in tree */
@@ -36,21 +35,21 @@ public class BinListTree implements IBinTree {
             }
             idx = (comparison > 0) ? leftOf(idx) : rightOf(idx);
         }
+        maxEntryLen = (entryLen > maxEntryLen) ? entryLen : maxEntryLen;
+        /* make number even */
+        maxEntryLen += maxEntryLen%2;
         comparables[idx] = comparable;
         return true;
     }
 
-    @Override
     public Comparable[] getInOrder() {
         return getOrderReku(0, Order.IN);
     }
 
-    @Override
     public Comparable[] getPreOrder() {
         return getOrderReku(0, Order.PRE);
     }
 
-    @Override
     public Comparable[] getPostOrder() {
         return getOrderReku(0, Order.POST);
     }
@@ -87,6 +86,24 @@ public class BinListTree implements IBinTree {
         for(int i = 0; i < B.length; i++) {
             result[A.length+i] = B[i];
         }
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        String result = "";
+        int idx = 0;
+        for(int height = 0; height < depth; height++) {
+            String seperator = "";
+            for(int i = 0; i < Math.pow(2, height); i++) {
+                idx = (int)Math.pow(2, height)-1+i;
+                if(null != comparables[idx]) {
+                    result += comparables[idx] + " ";
+                }
+            }
+            result += "\n";
+        }
+
         return result;
     }
 }

@@ -1,3 +1,4 @@
+import BinTree.BinLinkedTree.BinLinkedTree;
 import BinTree.BinListTree.BinListTree;
 import BinTree.IBinTree;
 import org.junit.Before;
@@ -13,7 +14,7 @@ import static org.junit.Assert.assertTrue;
  * Created by marble on 5/10/17.
  */
 public class TBinTree {
-    private static final int DEPTH = 10;
+    private static final int DEPTH = 8;
     /* unique random numbers !! */
     private static final int[] VAL_ARR = {28,  4, 82, 20, 93,
                                           21, 49, 86,  0, 42,
@@ -24,7 +25,8 @@ public class TBinTree {
 
     @Before
     public void init() {
-        binTree = new BinListTree(DEPTH);
+        binTree = new BinLinkedTree();
+        //binTree = new BinListTree(DEPTH);
     }
 
     @Test
@@ -43,6 +45,7 @@ public class TBinTree {
         assertFalse(binTree.insert(VAL_ARR[0]));
         /* get InOrder output and compare to sorted clone */
         assertArrayEquals(binTree.getInOrder(), sorted);
+        System.out.println(binTree);
     }
 
 }
