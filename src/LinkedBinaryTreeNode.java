@@ -1,7 +1,7 @@
 package aufgabe7.src;
 
 /**
- * Created by Niels Gandraß on 10.05.2017.
+ * Node of a LinkedBinaryTree
  */
 public class LinkedBinaryTreeNode<T extends Comparable> {
 
