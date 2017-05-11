@@ -88,22 +88,4 @@ public class BinListTree implements IBinTree {
         }
         return result;
     }
-
-    @Override
-    public String toString() {
-        String result = "";
-        int idx = 0;
-        for(int height = 0; height < depth; height++) {
-            String seperator = "";
-            for(int i = 0; i < Math.pow(2, height); i++) {
-                idx = (int)Math.pow(2, height)-1+i;
-                if(null != comparables[idx]) {
-                    result += comparables[idx] + " ";
-                }
-            }
-            result += "\n";
-        }
-
-        return result;
-    }
 }
