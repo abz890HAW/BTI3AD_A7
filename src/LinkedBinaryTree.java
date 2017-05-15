@@ -1,5 +1,7 @@
 package aufgabe7.src;
 
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 /**
  * Implemenation of a binary searchtree based on an internal linked structure of nodes of T
  * @param <T> Datatype to be stored
@@ -52,7 +54,7 @@ public class LinkedBinaryTree<T extends Comparable> implements BinaryTree<T> {
     public String toString(ORDER_TYPE sortType) {
         switch (sortType) {
             case BREADTH_FIRST:
-                return "BREADTH_FIRST: Not implemented for LinkedBinaryTree";
+                throw new NotImplementedException();
             case INORDER:
                 return "INORDER: [" + toStringInorder(_rootNode) + "]";
             case PREORDER:
